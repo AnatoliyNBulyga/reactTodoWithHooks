@@ -1,9 +1,29 @@
 import React from 'react';
+import {BrowserRouter, Switch, Route, Redirect} from "react-router-dom";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Navbar from "./components/Navbar";
+import Alert from "./components/Alert";
+import AlertState from "./context/alert/AlertState";
+import {FirebaseState} from "./context/firebase/FirebaseState";
 
 function App() {
   return (
-    <div className="App">
-    </div>
+      <FirebaseState>
+          <AlertState>
+              <BrowserRouter>
+                  <Navbar/>
+                  <div className="container pt-4">
+                      <Alert />
+                      <Switch>
+                          <Route path="/" exact component={Home}/>
+                          <Route path="/about" component={About}/>
+                          <Redirect to="/"/>
+                      </Switch>
+                  </div>
+              </BrowserRouter>
+          </AlertState>
+      </FirebaseState>
   );
 }
 
